@@ -13,7 +13,7 @@ using namespace chrono;
 unsigned long generate(int quantity, int maxSize)
 {
 	BasicSparseGeneratorState state(maxSize);
-	Generator gen("thisone", maxSize, maxSize - 1, &state);
+	Generator gen("thisone", maxSize, maxSize - 1, state);
 	const int codesToGenerate = 1000000;
 	vector<int> v(codesToGenerate);
 	auto start = high_resolution_clock::now();

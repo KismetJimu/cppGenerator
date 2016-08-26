@@ -10,10 +10,10 @@ class Generator {
 	string id;
 	int index;
 	int maxSize;
-	AbstractGeneratorState* state;
+	AbstractGeneratorState& state;
 
 public:
-	Generator(string id, int maxSize, int index, AbstractGeneratorState* state);
+	Generator(string id, int maxSize, int index, AbstractGeneratorState& state);
 
 	string getId();
 
@@ -21,7 +21,7 @@ public:
 
 	int getMaxSize();
 
-	AbstractGeneratorState* getState();
+	AbstractGeneratorState& getState();
 
 	bool hasNext();
 
