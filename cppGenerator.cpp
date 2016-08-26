@@ -10,9 +10,8 @@
 using namespace std;
 using namespace chrono;
 
-int main(int argc, char* argv[])
+unsigned long generate(int quantity, int maxSize)
 {
-	int maxSize = (int) pow(36, 5);
 	BasicSparseGeneratorState state(maxSize);
 	Generator gen("thisone", maxSize, maxSize - 1, &state);
 	const int codesToGenerate = 1000000;
@@ -23,9 +22,20 @@ int main(int argc, char* argv[])
 		v[i] = gen.next();
 	}
 	auto end = high_resolution_clock::now();
-	auto duration = duration_cast<milliseconds>(end - start).count();
-	cout << v[codesToGenerate - 1] << endl;
-	cout << "Done! Rate of: " << codesToGenerate / ( duration / 1000.0) << " Codes/sec"<< endl;
+	return duration_cast<milliseconds>(end - start).count();
+}
+
+int main(int argc, char* argv[])
+{
+	int maxSize = (int) pow(36, 5);
+	const int codesToGenerate = 1000000;
+	unsigned long durations = 0;
+	int repeats = 10;
+	for (int i = 0; i < repeats; ++i)
+	{
+		durations += generate(codesToGenerate, maxSize);
+	}
+	cout << "Done! Rate of: " << (repeats * codesToGenerate) / ( durations / 1000.0) << " Codes/sec"<< endl;
 	return 0;
 }
 

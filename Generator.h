@@ -1,7 +1,9 @@
 #ifndef __GENERATOR_H__
 #define __GENERATOR_H__
+
 #include <string>
-#include "BasicSparseGeneratorState.h";
+#include "BasicSparseGeneratorState.h"
+
 using namespace std;
 
 class Generator {
