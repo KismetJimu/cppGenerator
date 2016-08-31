@@ -15,11 +15,13 @@ unsigned long generate(int quantity, int maxSize)
 	BasicSparseGeneratorState state(maxSize);
 	Generator gen("thisone", maxSize, maxSize - 1, state);
 	const int codesToGenerate = 1000000;
-	vector<int> v(codesToGenerate);
+	vector<int> v;
+	v.reserve(codesToGenerate);
 	auto start = high_resolution_clock::now();
 	for (int i = 0; i < codesToGenerate; ++i)
 	{
-		v[i] = gen.next();
+		v.emplace_back(gen.next());
+		//v[i] = gen.next();
 	}
 	auto end = high_resolution_clock::now();
 	return duration_cast<milliseconds>(end - start).count();
@@ -35,7 +37,7 @@ int main(int argc, char* argv[])
 	{
 		durations += generate(codesToGenerate, maxSize);
 	}
-	cout << "Done! Rate of: " << (repeats * codesToGenerate) / ( durations / 1000.0) << " Codes/sec"<< endl;
+	cout << "Done! Rate of: " << (int) ((repeats * codesToGenerate) / ( durations / 1000.0)) << " Codes/sec"<< endl;
 	return 0;
 }
 
